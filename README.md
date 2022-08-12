@@ -1,70 +1,75 @@
-# Getting Started with Create React App
+# [TODO:패키지명]
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+react-leaflet 기반으로 구축한 바로e맵 타일 컴포넌트입니다.
+[바로e맵이란?](http://map.ngii.go.kr/mi/emapMain/emapIntro01.do)
 
-## Available Scripts
+## 설치
 
-In the project directory, you can run:
+```sh
+npm i [TODO:경로]
+```
 
-### `npm start`
+## 버전별 기능
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+| 버전   | 출시일        | 기능                                                                       |
+| ------ | ------------- | -------------------------------------------------------------------------- |
+| v0.1.0 | TODO:등록일자 | 외국인에게 편의성을 제공하는 다국어지도 제공(한국어, 영어, 중국어, 일본어) |
+| v0.2.0 | 예정          | 큰글씨로 표현하여 더 잘 보이는 저시력자용 지도 제공                        |
+| v0.3.0 | 예정          | 색 혼돈을 최소화한 색각이상용 지도 제공                                    |
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 컴포넌트 목록
 
-### `npm test`
+| 컴포넌트명    | 설명                | 파라미터                                                                     |
+| ------------- | ------------------- | ---------------------------------------------------------------------------- |
+| NgiiTileLayer | 바로e맵 타일레이어  | `apiKey`\* : 바로e맵 API 키<br/> `lang` : 국가코드(["kr", "en", "zh", "ja"]) |
+| NGII_CRS      | 바로e맵 좌표계(CRS) | -                                                                            |
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## react-leaflet 샘플 코드
 
-### `npm run build`
+```javascript
+import React from "react";
+import { MapContainer } from "react-leaflet";
+import { NgiiTileLayer, NGII_CRS } from "./lib";
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+import "./custom-leaflet.css"; //Just @import "~leaflet/dist/leaflet.css";
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+const MAP_INIT_VALUE = {
+  MIN_ZOOM: 0,
+  MAX_ZOOM: 13,
+  CENTER: [37.72898172897842, 126.74663916403654],
+  ZOOM: 12,
+};
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+export default function SampleLeafletNgiiMap({ children }) {
+  return (
+    <MapContainer
+      crs={NGII_CRS} //필수: 바로e맵 CRS을 import하여 사용
+      minZoom={MAP_INIT_VALUE.MIN_ZOOM}
+      maxZoom={MAP_INIT_VALUE.MAX_ZOOM}
+      center={MAP_INIT_VALUE.CENTER}
+      zoom={MAP_INIT_VALUE.ZOOM}
+      style={{
+        width: "100vw",
+        height: "100vh",
+      }}
+      zoomControl={true}
+      bounceAtZoomLimits={false}
+    >
+      <NgiiTileLayer apiKey={process.env.REACT_APP_NGII_MAP_KEY} lang={"kr"} />
+      {/* 필수: 바로e맵 타일레이어를 import하여 사용 */}
 
-### `npm run eject`
+      {children}
+    </MapContainer>
+  );
+}
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## 의존성
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```
+"leaflet": "^1.8.0",
+"leaflet.wmts": "^1.0.2",
+"proj4leaflet": "^1.0.2",
+"react-leaflet": "^4.0.1",
+...
+```

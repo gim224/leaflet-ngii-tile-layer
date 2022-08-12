@@ -1,26 +1,47 @@
 {
-  "name": "leaflet-ngii-tile-layer",
-  "version": "0.1.0",
-  "private": true,
+  "name": "@gt.kim/leaflet-ngii-tile-layer",
+  "description": "react-leaflet 기반으로 구축한 바로e맵 타일 컴포넌트",
+  "keywords": [
+    "바로e맵",
+    "ngii",
+    "leaflet",
+    "react-leaflet",
+    "한글지도",
+    "다국어지도"
+  ],
+  "version": "0.0.1",
+  "author": {
+    "name": "gtgt.kim",
+    "email": "gtgt.kim@kakao.com"
+  },
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "private": false,
+  "babel": {
+    "presets": [
+      "@babel/preset-react"
+    ]
+  },
   "dependencies": {
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.3.0",
-    "@testing-library/user-event": "^13.5.0",
+    "leaflet": "^1.8.0",
+    "leaflet.wmts": "^1.0.2",
+    "proj4leaflet": "^1.0.2",
+    "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.4"
+    "react-leaflet": "^4.0.1",
+    "react-scripts": "5.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "publish:npm": "rm -rf dist && mkdir dist && babel src/lib -d dist --copy-files"
   },
   "eslintConfig": {
     "extends": [
-      "react-app",
-      "react-app/jest"
+      "react-app"
     ]
   },
   "browserslist": {
@@ -34,5 +55,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.18.10",
+    "@babel/preset-react": "^7.18.6"
   }
 }
